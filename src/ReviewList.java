@@ -12,15 +12,15 @@ public class ReviewList implements ListInterface<Reviews>{
 
     public void add(Reviews review) {
         Node newNode = new Node(review);
-        if (head == null)
+        if (head == null) {
             head = newNode;
-        else {
+        } else {
             Node current = head;
             while (current.next != null)
                 current = current.next;
             current.next = newNode;
         }
-        size++;
+        size++; 
     }
 
     public double getAverage() {
@@ -43,7 +43,7 @@ public class ReviewList implements ListInterface<Reviews>{
 	@Override
 	public int getSize() {
 		// TODO Auto-generated method stub
-		return 0;
+		return size;
 	}
 }
 
