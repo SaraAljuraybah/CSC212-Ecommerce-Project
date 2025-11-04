@@ -1,6 +1,6 @@
 package Phase1;
 
-public class ProductList {
+public class ProductList implements ListInterface<Products> {
     private class Node {
         Products data;
         Node next;
@@ -10,6 +10,7 @@ public class ProductList {
     private Node head;
     private int size;
 
+    @Override
     public void add(Products product) {
         Node newNode = new Node(product);
         if (head == null)
@@ -23,6 +24,7 @@ public class ProductList {
         size++;
     }
 
+    @Override
     public Products searchById(int id) {
         Node current = head;
         while (current != null) {
@@ -53,5 +55,6 @@ public class ProductList {
         }
     }
 
+    @Override
     public int getSize() { return size; }
 }

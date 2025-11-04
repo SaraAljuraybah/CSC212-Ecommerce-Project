@@ -1,7 +1,6 @@
 package Phase1;
 
-
-public class CustomerList {
+public class CustomerList implements ListInterface<Customers> {
     private class Node {
         Customers data;
         Node next;
@@ -11,6 +10,7 @@ public class CustomerList {
     private Node head;
     private int size;
 
+    @Override
     public void add(Customers customer) {
         Node newNode = new Node(customer);
         if (head == null)
@@ -24,6 +24,7 @@ public class CustomerList {
         size++;
     }
 
+    @Override
     public Customers searchById(int id) {
         Node current = head;
         while (current != null) {
@@ -44,5 +45,6 @@ public class CustomerList {
         return null;
     }
 
+    @Override
     public int getSize() { return size; }
 }

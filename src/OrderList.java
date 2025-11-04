@@ -1,6 +1,6 @@
 package Phase1;
-
-public class OrderList {
+public class OrderList implements ListInterface<Orders> {
+	
     private class Node {
         Orders data;
         Node next;
@@ -10,6 +10,7 @@ public class OrderList {
     private Node head;
     private int size;
 
+    @Override
     public void add(Orders order) {
         Node newNode = new Node(order);
         if (head == null)
@@ -23,6 +24,7 @@ public class OrderList {
         size++;
     }
 
+    @Override
     public Orders searchById(int orderId) {
         Node current = head;
         while (current != null) {
@@ -33,6 +35,9 @@ public class OrderList {
         return null;
     }
 
+    @Override
+    public int getSize() { return size; }
+
     public void displayOrders() {
         Node current = head;
         while (current != null) {
@@ -42,6 +47,4 @@ public class OrderList {
             current = current.next;
         }
     }
-
-    public int getSize() { return size; }
 }
