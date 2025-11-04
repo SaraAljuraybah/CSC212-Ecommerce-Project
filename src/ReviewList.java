@@ -1,6 +1,6 @@
 package Phase1;
 
-public class ReviewList {
+public class ReviewList implements ListInterface<Reviews>{
     private class Node {
         Reviews data;
         Node next;
@@ -33,5 +33,17 @@ public class ReviewList {
         }
         return total / size;
     }
+
+	@Override
+	public Reviews searchById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getSize() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
 
