@@ -18,6 +18,20 @@ public class Main {
 	        System.out.println("Customers: " + customers.getSize());
 	        System.out.println("Orders: " + orders.getSize());
 	        System.out.println("Reviews: " + reviews.getSize());
+	        //**************************
+	        System.out.println("\n--- Adding New Product ---");
+	        products.addProduct(151, "Smart Glasses X", 499.99, 25);
+	        System.out.println("Total products after adding: " + products.getSize());
+
+	        System.out.println("\n--- Adding New Customer ---");
+	        customers.addCustomer(231, "Sara Aljuraybah", "sara.aljreba@example.com");
+	        System.out.println("Total customers after adding: " + customers.getSize());
+	        
+	        System.out.println("\n--- Placing New Order ---");
+	        orders.addOrder(401, 231, "101;102;103", customers, products);
+	        System.out.println("Total orders after adding: " + orders.getSize());
+
+	        //**************************
 
 
 

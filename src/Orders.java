@@ -24,6 +24,10 @@ public class Orders {
     public double getTotalPrice() { return totalPrice; }
     public String getStatus() { return status; }
     public Customers getCustomer() { return customer; }
+    // ✅ Setters
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
     // ✅ Operations
 

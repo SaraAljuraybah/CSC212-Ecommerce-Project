@@ -1,4 +1,6 @@
 package Phase1;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 public class OrderList implements ListInterface<Orders> {
 	
     private class Node {
@@ -47,4 +49,53 @@ public class OrderList implements ListInterface<Orders> {
             current = current.next;
         }
     }
+    
+    //********************************************
+    public void addOrder(int orderId, int customerId, String productIdsStr, //O(n+m)
+            CustomerList customers, ProductList products) {
+	
+	// 🧩 نتأكد أن الطلب ما هو موجود مسبقًا
+	if (searchById(orderId) != null) {
+	System.out.println("❌ Order with ID " + orderId + " already exists!");
+	return;
+	}
+	
+	// 🧩 نبحث عن العميل باستخدام الـ ID
+	Customers customer = customers.searchById(customerId);
+	if (customer == null) {
+	System.out.println("❌ Customer not found with ID " + customerId);
+	return;
+	}
+	
+	// 🧩 نجهز الطلب الجديد
+	Date today = new Date(); // التاريخ الحالي
+	Orders newOrder = new Orders(orderId, customer, today);
+	newOrder.updateStatus("Pending");
+	
+	double totalPrice = 0;
+	
+	// 🧩 نضيف المنتجات
+	String[] productIds = productIdsStr.split(";");
+	for (String pid : productIds) {
+	pid = pid.trim();
+	if (!pid.isEmpty()) {
+	   Products product = products.searchById(Integer.parseInt(pid));
+	   if (product != null) {
+	       newOrder.addProduct(product);
+	       totalPrice += product.getPrice();
+	   } else {
+	       System.out.println("⚠️ Product not found: " + pid);
+	   }
+	}
+	}
+	
+	// 🧩 نحسب المجموع
+	newOrder.setTotalPrice(totalPrice);
+	
+	// 🧩 نضيف الطلب إلى القائمة
+	add(newOrder);
+	System.out.println("✅ Order added successfully for " + customer.getName());
+	}
+    //********************************************
+
 }

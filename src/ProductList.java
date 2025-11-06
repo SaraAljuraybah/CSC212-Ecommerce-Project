@@ -56,5 +56,24 @@ public class ProductList implements ListInterface<Products> {
     }
 
     @Override
-    public int getSize() { return size; }
+    public int getSize() { 
+    	return size; }
+    
+    //**********************************************************
+    public void addProduct(int id, String name, double price, int stock) {//O(n)
+        // تأكدي إن المنتج ما هو مكرر
+        if (searchById(id) != null) {//O(n)
+            System.out.println("❌ Product with ID " + id + " already exists!");
+            return;
+        }
+
+        // إنشاء المنتج الجديد
+        Products newProduct = new Products(id, name, price, stock);
+
+        // استخدام الدالة add اللي عندنا من قبل
+        add(newProduct);//O(1)
+
+        System.out.println("✅ Product added successfully: " + name);
+    }
+    //****************************************************************
 }
