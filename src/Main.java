@@ -30,6 +30,11 @@ public class Main {
 	        System.out.println("\n--- Placing New Order ---");
 	        orders.addOrder(401, 231, "101;102;103", customers, products);
 	        System.out.println("Total orders after adding: " + orders.getSize());
+	        
+	        System.out.println("\n--- Adding New Review ---");
+	        reviews.addReview(231, 101, 5, "Amazing product, super fast!", customers, products);
+	        System.out.println("Total reviews after adding: " + reviews.getSize());
+
 
 	        //**************************
 

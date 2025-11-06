@@ -45,5 +45,36 @@ public class ReviewList implements ListInterface<Reviews>{
 		// TODO Auto-generated method stub
 		return size;
 	}
+	//********************************************************
+	public void addReview(int customerId, int productId, int rating, String comment,
+		            CustomerList customers, ProductList products) {
+		// نبحث عن العميل
+		Customers customer = customers.searchById(customerId);
+		if (customer == null) {
+		System.out.println("❌ Customer not found with ID " + customerId);
+		return;
+		}
+		
+		// نبحث عن المنتج
+		Products product = products.searchById(productId);
+		if (product == null) {
+		System.out.println("❌ Product not found with ID " + productId);
+		return;
+		}
+		
+		// ننشئ التقييم الجديد
+		Reviews review = new Reviews(rating, comment, customer);
+		
+		// نربط التقييم بالمنتج
+		product.addReview(review);
+		
+		// نضيفه في القائمة العامة
+		add(review);
+		
+		System.out.println("✅ Review added successfully by " + customer.getName() +
+		             " for product: " + product.getName());
+		}
+	//*****************************************************
+
 }
 
