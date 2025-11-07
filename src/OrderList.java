@@ -97,5 +97,40 @@ public class OrderList implements ListInterface<Orders> {
 	System.out.println("✅ Order added successfully for " + customer.getName());
 	}
     //********************************************
+    public void printOrdersBetweenDates(String startDateStr, String endDateStr) {
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("M/d/yyyy");
+            Date startDate = formatter.parse(startDateStr);
+            Date endDate = formatter.parse(endDateStr);
 
+            System.out.println("\n--- Orders between " + startDateStr + " and " + endDateStr + " ---");
+
+            Node current = head;
+            boolean found = false;
+
+            while (current != null) {
+                Orders order = current.data;
+                Date orderDate = order.getOrderDate();
+
+                // التحقق إن التاريخ بين التاريخين
+                if (orderDate.compareTo(startDate) >= 0 && orderDate.compareTo(endDate) <= 0) {
+                    found = true;
+                    System.out.println("Order ID: " + order.getOrderId() +
+                                       " | Customer: " + order.getCustomer().getName() +
+                                       " | Date: " + formatter.format(orderDate) +
+                                       " | Status: " + order.getStatus() +
+                                       " | Total: " + order.getTotalPrice());
+                }
+
+                current = current.next;
+            }
+
+            if (!found)
+                System.out.println("⚠️ No orders found in this date range.");
+
+        } catch (Exception e) {
+            System.out.println("❌ Error parsing date: " + e.getMessage());
+        }
+    }
+    //***************************************************8
 }

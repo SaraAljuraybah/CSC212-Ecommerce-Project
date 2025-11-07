@@ -35,6 +35,8 @@ public class Main {
 	        reviews.addReview(231, 101, 5, "Amazing product, super fast!", customers, products);
 	        System.out.println("Total reviews after adding: " + reviews.getSize());
 
+	        System.out.println("\n--- Orders Between Two Dates ---");
+	        orders.printOrdersBetweenDates("1/20/2025", "1/25/2025");
 
 	        //**************************
 
