@@ -1,4 +1,4 @@
-package Phase1;
+package phase1;
 
 public interface ListInterface<T> {
     void add(T item);

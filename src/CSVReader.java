@@ -1,4 +1,4 @@
-package Phase1;
+package phase1;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class CSVReader {
 
-    // ✅ Read Products file
+    
     public static void readProducts(String filename, ProductList productList) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line = br.readLine(); // Skip header
@@ -49,6 +49,7 @@ public class CSVReader {
     public static void readOrders(String filename, OrderList orderList, CustomerList customers, ProductList products) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line = br.readLine(); // Skip header
+            ////////////////////*************************yearFormat
             SimpleDateFormat formatter = new SimpleDateFormat("M/d/yyyy");
 
             while ((line = br.readLine()) != null) {
@@ -56,6 +57,15 @@ public class CSVReader {
                 int orderId = Integer.parseInt(data[0].trim());
                 int customerId = Integer.parseInt(data[1].trim());
                 String productIdsStr = data[2].trim();
+                //*******************************
+
+             // FIX: remove surrounding quotes (e.g. "101;102")
+                if (productIdsStr.startsWith("\"") && productIdsStr.endsWith("\"")) {
+                    productIdsStr = productIdsStr.substring(1, productIdsStr.length() - 1);
+                }
+                productIdsStr = productIdsStr.replace("\"", ""); // safety for stray quotes
+                ////************************
+                
                 double totalPrice = Double.parseDouble(data[3].trim());
                 Date orderDate = formatter.parse(data[4].trim());
                 String status = data[5].trim();
@@ -102,7 +112,8 @@ public class CSVReader {
                 Customers reviewer = customers.searchById(customerId);
 
                 if (product != null && reviewer != null) {
-                    Reviews review = new Reviews(rating, comment, reviewer);
+                	//*************
+                    Reviews review = new Reviews(rating, comment, reviewer, product);
                     product.addReview(review);
                     reviewList.add(review);
                     System.out.println("DEBUG: added review for productId=" + productId + " | rating=" + rating + " | current size=" + reviewList.getSize());

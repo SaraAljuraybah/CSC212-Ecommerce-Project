@@ -1,4 +1,4 @@
-package Phase1;
+package phase1;
 
 public class Products {
     private int productId;
@@ -15,7 +15,7 @@ public class Products {
         this.reviews = new ReviewList();
     }
 
-    // ✅ Getter & Setter
+    
     public int getProductId() { return productId; }
     public String getName() { return name; }
     public double getPrice() { return price; }
@@ -26,7 +26,8 @@ public class Products {
 
     // ✅ Operations
 
-    // Add new review to the product
+    // Add new review to the product ***************** 
+   //method add product-remove 
     public void addReview(Reviews review) {
         reviews.add(review);
     }
@@ -42,6 +43,12 @@ public class Products {
         this.stock = newStock;
         System.out.println("Product updated successfully!");
     }
+    //&&&&&&&&&&&&&&&&&
+ // Query #4 helper: has this product been reviewed by this customer?
+    public boolean hasReviewByCustomer(int customerId) {
+        return reviews != null && reviews.hasReviewByCustomer(customerId);
+    }
+    //&&&&&&&&&&&&&&&&&&&&&&&&
 
     // Check if out of stock
     public boolean isOutOfStock() {

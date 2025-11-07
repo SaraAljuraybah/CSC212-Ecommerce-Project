@@ -1,4 +1,4 @@
-package Phase1;
+package phase1;
 
 import java.util.Date;
 
@@ -19,24 +19,26 @@ public class Orders {
         this.status = "pending";
     }
 
-    // ✅ Getters
+    
     public int getOrderId() { return orderId; }
     public double getTotalPrice() { return totalPrice; }
     public String getStatus() { return status; }
     public Customers getCustomer() { return customer; }
+    //^^^^^^^^^^^^
     public Date getOrderDate() {
         return orderDate;
     }
-    // ✅ Setters
+ 
+    //*********************
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+    //^^^^^^^
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
 
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    // ✅ Operations
+ 
 
     // Add product to order
     public void addProduct(Products p) {

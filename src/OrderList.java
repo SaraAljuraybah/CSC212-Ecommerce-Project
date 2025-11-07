@@ -1,4 +1,4 @@
-package Phase1;
+package phase1;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 public class OrderList implements ListInterface<Orders> {
@@ -49,8 +49,7 @@ public class OrderList implements ListInterface<Orders> {
             current = current.next;
         }
     }
-    
-    //********************************************
+    //***************************
     public void addOrder(int orderId, int customerId, String productIdsStr, //O(n+m)
             CustomerList customers, ProductList products) {
 	
@@ -95,8 +94,8 @@ public class OrderList implements ListInterface<Orders> {
 	// 🧩 نضيف الطلب إلى القائمة
 	add(newOrder);
 	System.out.println("✅ Order added successfully for " + customer.getName());
-	}
-    //********************************************
+} 
+    //^^^^^^^^^^^^^^^^^^^^^^^
     public void printOrdersBetweenDates(String startDateStr, String endDateStr) {
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("M/d/yyyy");
@@ -133,4 +132,8 @@ public class OrderList implements ListInterface<Orders> {
         }
     }
     //***************************************************8
+
 }
+
+
+

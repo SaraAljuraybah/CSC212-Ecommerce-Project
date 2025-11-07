@@ -1,4 +1,4 @@
-package Phase1;
+package phase1;
 
 public class CustomerList implements ListInterface<Customers> {
     private class Node {
@@ -46,10 +46,8 @@ public class CustomerList implements ListInterface<Customers> {
     }
 
     @Override
-    public int getSize() { 
-    	return size; 
-    	}
-    //*****************************************************8
+    public int getSize() { return size; }
+    //*********************************
     public void addCustomer(int id, String name, String email) {
         // نتأكد أن العميل ما هو موجود مسبقًا
         if (searchById(id) != null) {
@@ -65,5 +63,5 @@ public class CustomerList implements ListInterface<Customers> {
 
         System.out.println("✅ Customer added successfully: " + name);
     }
-    //****************************************************************
+ //*******************
 }

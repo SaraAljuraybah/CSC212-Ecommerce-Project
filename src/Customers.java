@@ -1,4 +1,4 @@
-package Phase1;
+package phase1;
 
 public class Customers {
     private int customerId;
@@ -13,12 +13,12 @@ public class Customers {
         this.orders = new OrderList();
     }
 
-    // ✅ Getters
+    
     public int getCustomerId() { return customerId; }
     public String getName() { return name; }
     public String getEmail() { return email; }
 
-    // ✅ Operations
+
 
     // Register new customer
     public static Customers registerCustomer(int id, String name, String email) {
