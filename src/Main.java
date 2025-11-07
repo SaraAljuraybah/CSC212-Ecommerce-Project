@@ -108,9 +108,11 @@ public class Main {
 	                    int rpid = sc.nextInt();
 	                    System.out.print("Enter rating (1-5): ");
 	                    int rate = sc.nextInt();
+	                    //+++++++++++++++++++
 	                    if(rate<0 || rate >5 ) {
 	                    	System.out.print("Rating muste be a value from 0-5 \n");
 	                    	break;}
+	                    //+++++++++++++++++
 	                    sc.nextLine();
 	                    System.out.print("Enter comment: ");
 	                    String comment = sc.nextLine();
