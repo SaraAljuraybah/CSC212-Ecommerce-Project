@@ -52,48 +52,67 @@ public class OrderList implements ListInterface<Orders> {
     //***************************
     public void addOrder(int orderId, int customerId, String productIdsStr, //O(n+m)
             CustomerList customers, ProductList products) {
-	
-	// 🧩 نتأكد أن الطلب ما هو موجود مسبقًا
-	if (searchById(orderId) != null) {
-	System.out.println("❌ Order with ID " + orderId + " already exists!");
-	return;
-	}
-	
-	// 🧩 نبحث عن العميل باستخدام الـ ID
-	Customers customer = customers.searchById(customerId);
-	if (customer == null) {
-	System.out.println("❌ Customer not found with ID " + customerId);
-	return;
-	}
-	
-	// 🧩 نجهز الطلب الجديد
-	Date today = new Date(); // التاريخ الحالي
-	Orders newOrder = new Orders(orderId, customer, today);
-	newOrder.updateStatus("Pending");
-	
-	double totalPrice = 0;
-	
-	// 🧩 نضيف المنتجات
-	String[] productIds = productIdsStr.split(";");
-	for (String pid : productIds) {
-	pid = pid.trim();
-	if (!pid.isEmpty()) {
-	   Products product = products.searchById(Integer.parseInt(pid));
-	   if (product != null) {
-	       newOrder.addProduct(product);
-	       totalPrice += product.getPrice();
-	   } else {
-	       System.out.println("⚠️ Product not found: " + pid);
-	   }
-	}
-	}
-	
-	// 🧩 نحسب المجموع
-	newOrder.setTotalPrice(totalPrice);
-	
-	// 🧩 نضيف الطلب إلى القائمة
-	add(newOrder);
-	System.out.println("✅ Order added successfully for " + customer.getName());
+    	
+// ======================================
+// 0️⃣ Validate: check if order ID already exists
+// ======================================
+Orders existing = searchById(orderId);
+if (existing != null) {
+   System.out.println("✗ Order ID " + orderId + " already exists. Please use a unique ID.");
+   return; // stop immediately
+}
+
+// 1️⃣ Validate customer
+Customers customer = customers.searchById(customerId);
+if (customer == null) {
+   System.out.println("✗ Customer not found with ID " + customerId);
+   return;
+}
+
+// 2️⃣ Create order object
+Date today = new Date();
+Orders newOrder = new Orders(orderId, customer, today);
+newOrder.updateStatus("Pending");
+
+double totalPrice = 0;
+int productCount = 0;        
+boolean missingProduct = false;
+
+// 3️⃣ Process product IDs
+String[] productIds = productIdsStr.split(";");
+for (String pid : productIds) {
+   pid = pid.trim();
+   if (!pid.isEmpty()) {
+       Products product = products.searchById(Integer.parseInt(pid));
+       if (product != null) {
+           newOrder.addProduct(product);
+           totalPrice += product.getPrice();
+           productCount++;
+       } else {
+           System.out.println("△ Product not found: " + pid);
+           missingProduct = true;
+       }
+   }
+}
+
+// 4️⃣ Validation after product processing
+if (productCount == 0) {
+   System.out.println("✗ Order not added: no valid products were provided.");
+   return;
+}
+if (missingProduct) {
+   System.out.println("✗ Order not added: one or more product IDs were invalid.");
+   return;
+}
+
+// 5️⃣ Add order if everything valid
+newOrder.setTotalPrice(totalPrice);
+add(newOrder);
+System.out.println("✔ Order added successfully for " + customer.getName());
+
+
+
+
 } 
     //^^^^^^^^^^^^^^^^^^^^^^^
     public void printOrdersBetweenDates(String startDateStr, String endDateStr) {
