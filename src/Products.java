@@ -24,10 +24,10 @@ public class Products {
     public void setPrice(double price) { this.price = price; }
     public void setStock(int stock) { this.stock = stock; }
 
-    // ✅ Operations
+    // Operations
 
-    // Add new review to the product ***************** 
-   //method add product-remove 
+    // Add new review to the product 
+
     public void addReview(Reviews review) {
         reviews.add(review);
     }
@@ -43,12 +43,11 @@ public class Products {
         this.stock = newStock;
         System.out.println("Product updated successfully!");
     }
-    //&&&&&&&&&&&&&&&&&
- // Query #4 helper: has this product been reviewed by this customer?
+ 
     public boolean hasReviewByCustomer(int customerId) {
         return reviews != null && reviews.hasReviewByCustomer(customerId);
     }
-    //&&&&&&&&&&&&&&&&&&&&&&&&
+
 
     // Check if out of stock
     public boolean isOutOfStock() {
@@ -61,3 +60,4 @@ public class Products {
                ", Price: " + price + ", Stock: " + stock;
     }
 }
+
