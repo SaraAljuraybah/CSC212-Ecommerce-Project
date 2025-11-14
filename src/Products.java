@@ -37,7 +37,7 @@ public class Products {
         return reviews.getAverage();
     }
 
-    // Update product info (price and stock)
+    // Update product info 
     public void updateProduct(double newPrice, int newStock) {
         this.price = newPrice;
         this.stock = newStock;
@@ -60,4 +60,5 @@ public class Products {
                ", Price: " + price + ", Stock: " + stock;
     }
 }
+
 
