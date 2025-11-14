@@ -23,19 +23,19 @@ public class ProductList implements ListInterface<Products> {
         }
         size++;
     }
-    //*******************************
+   
     public Products[] getTop3ByAverageRating() {
         Products[] top = new Products[3];
         double[] best = { 0, 0, 0 };
 
-        Node cur = head; // start at the first product node
+        Node cur = head; 
         while (cur != null) {
             Products p = cur.data;
-            double avg = p.getAverageRating(); // uses ReviewList.getAverage()
+            double avg = p.getAverageRating(); 
 
             for (int i = 0; i < 3; i++) {
                 if (avg > best[i]) {
-                    // shift lower-ranked items down one position
+               
                     for (int j = 2; j > i; j--) {
                         best[j] = best[j - 1];
                         top[j]  = top[j - 1];
@@ -52,7 +52,7 @@ public class ProductList implements ListInterface<Products> {
 
     
     
-    ////remove product method ****************************
+  
     public boolean removeProduct(int id) {
         if (head == null) return false;
         if (head.data.getProductId() == id) {
@@ -105,32 +105,26 @@ public class ProductList implements ListInterface<Products> {
 
     @Override
     public int getSize() { return size; }
-    //**********************
-    public void addProduct(int id, String name, double price, int stock) {//O(n)
-        // تأكدي إن المنتج ما هو مكرر
-        if (searchById(id) != null) {//O(n)
-            System.out.println("❌ Product with ID " + id + " already exists!");
+    
+    public void addProduct(int id, String name, double price, int stock) {
+      
+        if (searchById(id) != null) {
+            System.out.println(" Product with ID " + id + " already exists!");
             return;
         }
 
-        // إنشاء المنتج الجديد
+        
         Products newProduct = new Products(id, name, price, stock);
 
-        // استخدام الدالة add اللي عندنا من قبل
-        add(newProduct);//O(1)
+     
+        add(newProduct);
 
-        System.out.println("✅ Product added successfully: " + name);
+        System.out.println(" Product added successfully: " + name);
     }
-    //&&&&&&&&&&&&&&&&&&&&&&&&&
- // ------------------------------------------------------------
- // Query #4: Common products reviewed by two customers
- // and whose average rating is strictly greater than minAvg
- // Time: O(P + R)  (single pass over products; each check is linear in that product's reviews)
- // Space: O(1)
- // ------------------------------------------------------------
+  
  public void printCommonReviewedProducts(int customerId1, int customerId2, double minAvg) {
      boolean found = false;
-     Node cur = head; // your inner node type that holds Products
+     Node cur = head; 
 
      System.out.println("\nCommon products reviewed by customers "
              + customerId1 + " and " + customerId2 + " with average rating > " + minAvg + ":");
@@ -154,7 +148,8 @@ public class ProductList implements ListInterface<Products> {
      if (!found) {
          System.out.println("None.");
      }
-     //&&&&&&&&&&&&&&&&&&&&&&&&
+     
  }
 
 }
+
