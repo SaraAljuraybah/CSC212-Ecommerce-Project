@@ -49,27 +49,27 @@ public class OrderList implements ListInterface<Orders> {
             current = current.next;
         }
     }
-    //***************************
-    public void addOrder(int orderId, int customerId, String productIdsStr, //O(n+m)
+  
+    public void addOrder(int orderId, int customerId, String productIdsStr, 
             CustomerList customers, ProductList products) {
     	
-// ======================================
-// 0️⃣ Validate: check if order ID already exists
-// ======================================
+
+//   check if order ID already exists
+
 Orders existing = searchById(orderId);
 if (existing != null) {
-   System.out.println("✗ Order ID " + orderId + " already exists. Please use a unique ID.");
-   return; // stop immediately
+   System.out.println(" Order ID " + orderId + " already exists. Please use a unique ID.");
+   return; 
 }
 
-// 1️⃣ Validate customer
+// Validate customer
 Customers customer = customers.searchById(customerId);
 if (customer == null) {
-   System.out.println("✗ Customer not found with ID " + customerId);
+   System.out.println(" Customer not found with ID " + customerId);
    return;
 }
 
-// 2️⃣ Create order object
+// Create order object
 Date today = new Date();
 Orders newOrder = new Orders(orderId, customer, today);
 newOrder.updateStatus("Pending");
@@ -78,7 +78,7 @@ double totalPrice = 0;
 int productCount = 0;        
 boolean missingProduct = false;
 
-// 3️⃣ Process product IDs
+// Process product IDs
 String[] productIds = productIdsStr.split(";");
 for (String pid : productIds) {
    pid = pid.trim();
@@ -89,32 +89,32 @@ for (String pid : productIds) {
            totalPrice += product.getPrice();
            productCount++;
        } else {
-           System.out.println("△ Product not found: " + pid);
+           System.out.println(" Product not found: " + pid);
            missingProduct = true;
        }
    }
 }
 
-// 4️⃣ Validation after product processing
+//  Validation after product processing
 if (productCount == 0) {
-   System.out.println("✗ Order not added: no valid products were provided.");
+   System.out.println(" Order not added: no valid products were provided.");
    return;
 }
 if (missingProduct) {
-   System.out.println("✗ Order not added: one or more product IDs were invalid.");
+   System.out.println("Order not added: one or more product IDs were invalid.");
    return;
 }
 
-// 5️⃣ Add order if everything valid
+// Add order if everything valid
 newOrder.setTotalPrice(totalPrice);
 add(newOrder);
-System.out.println("✔ Order added successfully for " + customer.getName());
+System.out.println(" Order added successfully for " + customer.getName());
 
 
 
 
 } 
-    //^^^^^^^^^^^^^^^^^^^^^^^
+    
     public void printOrdersBetweenDates(String startDateStr, String endDateStr) {
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("M/d/yyyy");
@@ -130,7 +130,7 @@ System.out.println("✔ Order added successfully for " + customer.getName());
                 Orders order = current.data;
                 Date orderDate = order.getOrderDate();
 
-                // التحقق إن التاريخ بين التاريخين
+              
                 if (orderDate.compareTo(startDate) >= 0 && orderDate.compareTo(endDate) <= 0) {
                     found = true;
                     System.out.println("Order ID: " + order.getOrderId() +
@@ -144,15 +144,16 @@ System.out.println("✔ Order added successfully for " + customer.getName());
             }
 
             if (!found)
-                System.out.println("⚠️ No orders found in this date range.");
+                System.out.println(" No orders found in this date range.");
 
         } catch (Exception e) {
-            System.out.println("❌ Error parsing date: " + e.getMessage());
+            System.out.println(" Error parsing date: " + e.getMessage());
         }
     }
-    //***************************************************8
+ 
 
 }
+
 
 
 
