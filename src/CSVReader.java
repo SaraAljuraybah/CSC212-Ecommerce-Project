@@ -21,13 +21,13 @@ public class CSVReader {
                 Products p = new Products(id, name, price, stock);
                 productList.add(p);
             }
-            System.out.println("✅ Products loaded successfully from " + filename);
+            System.out.println(" Products loaded successfully from " + filename);
         } catch (IOException e) {
-            System.out.println("❌ Error reading products file: " + e.getMessage());
+            System.out.println(" Error reading products file: " + e.getMessage());
         }
     }
 
-    // ✅ Read Customers file
+    //  Read Customers file
     public static void readCustomers(String filename, CustomerList customerList) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line = br.readLine(); // Skip header
@@ -39,17 +39,17 @@ public class CSVReader {
                 Customers c = new Customers(id, name, email);
                 customerList.add(c);
             }
-            System.out.println("✅ Customers loaded successfully from " + filename);
+            System.out.println(" Customers loaded successfully from " + filename);
         } catch (IOException e) {
-            System.out.println("❌ Error reading customers file: " + e.getMessage());
+            System.out.println(" Error reading customers file: " + e.getMessage());
         }
     }
 
-    // ✅ Read Orders file
+    //  Read Orders file
     public static void readOrders(String filename, OrderList orderList, CustomerList customers, ProductList products) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line = br.readLine(); // Skip header
-            ////////////////////*************************yearFormat
+            
             SimpleDateFormat formatter = new SimpleDateFormat("M/d/yyyy");
 
             while ((line = br.readLine()) != null) {
@@ -57,14 +57,14 @@ public class CSVReader {
                 int orderId = Integer.parseInt(data[0].trim());
                 int customerId = Integer.parseInt(data[1].trim());
                 String productIdsStr = data[2].trim();
-                //*******************************
+                
 
-             // FIX: remove surrounding quotes (e.g. "101;102")
+             
                 if (productIdsStr.startsWith("\"") && productIdsStr.endsWith("\"")) {
                     productIdsStr = productIdsStr.substring(1, productIdsStr.length() - 1);
                 }
-                productIdsStr = productIdsStr.replace("\"", ""); // safety for stray quotes
-                ////************************
+                productIdsStr = productIdsStr.replace("\"", ""); 
+              
                 
                 double totalPrice = Double.parseDouble(data[3].trim());
                 Date orderDate = formatter.parse(data[4].trim());
@@ -90,13 +90,13 @@ public class CSVReader {
                     orderList.add(order);
                 }
             }
-            System.out.println("✅ Orders loaded successfully from " + filename);
+            System.out.println(" Orders loaded successfully from " + filename);
         } catch (Exception e) {
-            System.out.println("❌ Error reading orders file: " + e.getMessage());
+            System.out.println(" Error reading orders file: " + e.getMessage());
         }
     }
 
-    // ✅ Read Reviews file
+    //  Read Reviews file
     public static void readReviews(String filename, ReviewList reviewList, ProductList products, CustomerList customers) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line = br.readLine(); // Skip header
@@ -119,11 +119,12 @@ public class CSVReader {
                     System.out.println("DEBUG: added review for productId=" + productId + " | rating=" + rating + " | current size=" + reviewList.getSize());
                 }
             }
-            System.out.println("✅ Reviews loaded successfully from " + filename);
+            System.out.println(" Reviews loaded successfully from " + filename);
         } catch (IOException e) {
-            System.out.println("❌ Error reading reviews file: " + e.getMessage());
+            System.out.println(" Error reading reviews file: " + e.getMessage());
         }
     }
+
 
 
 }
