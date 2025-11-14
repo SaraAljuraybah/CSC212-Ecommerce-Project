@@ -55,4 +55,7 @@ All data structures are **manually implemented** — no built-in Java collection
 
 ---
 
-## 🧱 Class Diagram (Simplified)
+
+## 📌 UML Class Diagram
+
+![UML Diagram](https://raw.githubusercontent.com/SaraAljuraybah/CSC212-Ecommerce-Project/c38ce69758c5f2a5681cebc1756f3042d4f16815/UML.png)
