@@ -47,21 +47,22 @@ public class CustomerList implements ListInterface<Customers> {
 
     @Override
     public int getSize() { return size; }
-    //*********************************
+    
     public void addCustomer(int id, String name, String email) {
-        // نتأكد أن العميل ما هو موجود مسبقًا
+     
         if (searchById(id) != null) {
-            System.out.println("❌ Customer with ID " + id + " already exists!");
+            System.out.println(" Customer with ID " + id + " already exists!");
             return;
         }
 
-        // ننشئ العميل الجديد
+   
         Customers newCustomer = new Customers(id, name, email);
 
-        // نستخدم دالة الإضافة الأساسية
+     
         add(newCustomer);
 
-        System.out.println("✅ Customer added successfully: " + name);
+        System.out.println(" Customer added successfully: " + name);
     }
- //*******************
+
 }
+
