@@ -9,16 +9,12 @@ public class Main {
 	        CustomerList customers = new CustomerList();
 	        OrderList orders = new OrderList();
 	        ReviewList reviews = new ReviewList();
-//read     ///****************filenames
+//read     
 	        CSVReader.readProducts("data/products.csv", products);
 	        CSVReader.readCustomers("data/customers.csv", customers);
 	        CSVReader.readOrders("data/orders.csv", orders, customers, products);
 	        CSVReader.readReviews("data/reviews.csv", reviews, products, customers);
-//test
-	      
 
-	        //**********************
-	        // ===== Interactive Menu =====
 	        Scanner sc = new Scanner(System.in);
 	        int choice = 0;
 
@@ -36,11 +32,11 @@ public class Main {
 	            System.out.println("========================");
 	            System.out.print("Enter your choice: ");
 	            choice = sc.nextInt();
-	            sc.nextLine(); // consume newline
+	            sc.nextLine(); 
 
 	            switch (choice) {
 
-	                // 1️⃣ Add new product
+	                //  Add new product
 	                case 1:
 	                    System.out.print("Enter product ID: ");
 	                    int pid = sc.nextInt();
@@ -52,12 +48,12 @@ public class Main {
 	                    System.out.print("Enter stock quantity: ");
 	                    int stock = sc.nextInt();
 
-	                    // use instance: products (NOT ProductList)
+	                   
 	                    products.addProduct(pid, pname, price, stock);
-	                  //  System.out.println("✅ Product added successfully!\n");
+	                 
 	                    break;
 
-	                // 2️⃣ Add new customer
+	                //  Add new customer
 	                case 2:
 	                    System.out.print("Enter customer ID: ");
 	                    int cid = sc.nextInt();
@@ -67,13 +63,13 @@ public class Main {
 	                    System.out.print("Enter customer email: ");
 	                    String email = sc.nextLine();
 
-	                    // use customers.addCustomer (helper in CustomerList)
+	                   
 	                    customers.addCustomer(cid, cname, email);
-	                   //+++++++++++++++++++++++++
-	                 //   System.out.println("✅ Customer added successfully!\n");
+	                 
+	                
 	                    break;
 
-	                // 3️⃣ Place a new order
+	                //  Place a new order
 	                case 3:
 	                    System.out.print("Enter order ID: ");
 	                    int oid = sc.nextInt();
@@ -81,22 +77,22 @@ public class Main {
 	                    int custId = sc.nextInt();
 	                    sc.nextLine();
 
-	                    // use instance customers, not CustomerList
+	                  
 	                    Customers orderCustomer = customers.searchById(custId);
 	                    if (orderCustomer == null) {
-	                        System.out.println("❌ Customer not found!\n");
+	                        System.out.println(" Customer not found!\n");
 	                        break;
 	                    }
 
 	                    System.out.print("Enter product IDs (separated by ';', e.g. 101;102;103): ");
 	                    String productIdsStr = sc.nextLine();
 
-	                    // we already have helper in OrderList: addOrder(int, int, String, CustomerList, ProductList)
+	                   
 	                    orders.addOrder(oid, custId, productIdsStr, customers, products);
 	                    System.out.println();
 	                    break;
 
-	                // 4️⃣ Add a review
+	                //  Add a review
 	                case 4:
 	                    System.out.print("Enter customer ID: ");
 	                    int rcid = sc.nextInt();
@@ -104,21 +100,21 @@ public class Main {
 	                    int rpid = sc.nextInt();
 	                    System.out.print("Enter rating (1-5): ");
 	                    int rate = sc.nextInt();
-	                    //+++++++++++++++++++
+	                   
 	                    if(rate<0 || rate >5 ) {
 	                    	System.out.print("Rating muste be a value from 0-5 \n");
 	                    	break;}
-	                    //+++++++++++++++++
+	                    
 	                    sc.nextLine();
 	                    System.out.print("Enter comment: ");
 	                    String comment = sc.nextLine();
 
-	                    // use ReviewList.addReview(...) helper
+	                   
 	                    reviews.addReview(rcid, rpid, rate, comment, customers, products);
 	                    System.out.println();
 	                    break;
 
-	                // 5️⃣ Extract reviews by a specific customer
+	                //  Extract reviews by a specific customer
 	                case 5:
 	                    System.out.print("Enter customer ID: ");
 	                    int custToSearch = sc.nextInt();
@@ -127,7 +123,7 @@ public class Main {
 	                    System.out.println();
 	                    break;
 
-	                // 6️⃣ Suggest top 3 products by average rating
+	                //  Suggest top 3 products by average rating
 	                case 6:
 	                    Products[] top = products.getTop3ByAverageRating();
 	                    System.out.println("\nTop 3 products by average rating:");
@@ -143,7 +139,7 @@ public class Main {
 	                    System.out.println();
 	                    break;
 
-	                // 7️⃣ Show all orders between two dates
+	                //  Show all orders between two dates
 	                case 7:
 	                    System.out.println("Enter dates in format M/d/yyyy (e.g. 1/20/2025)");
 	                    System.out.print("Enter start date: ");
@@ -151,12 +147,12 @@ public class Main {
 	                    System.out.print("Enter end date: ");
 	                    String endDateStr = sc.nextLine();
 
-	                    // use orders.printOrdersBetweenDates(String, String)
+	                
 	                    orders.printOrdersBetweenDates(startDateStr, endDateStr);
 	                    System.out.println();
 	                    break;
 
-	                // 8️⃣ Common products reviewed by two customers (>4 avg)
+	                //  Common products reviewed by two customers (>4 avg)
 	                case 8:
 	                    System.out.print("Enter first customer ID: ");
 	                    int c1 = sc.nextInt();
@@ -164,14 +160,14 @@ public class Main {
 	                    int c2 = sc.nextInt();
 	                    sc.nextLine();
 
-	                    // function is in ProductList: printCommonReviewedProducts
+	                  
 	                    products.printCommonReviewedProducts(c1, c2, 4.0);
 	                    System.out.println();
 	                    break;
 
-	                // 9️⃣ Exit
+	              
 	                case 9:
-	                    System.out.println("👋 Exiting program...");
+	                    System.out.println(" Exiting program...");
 	                    break;
 
 	                default:
@@ -185,4 +181,5 @@ public class Main {
 
 
 	    }
+
 	}
