@@ -1,28 +1,25 @@
 package phase1;
 
 public class Reviews {
-    private int rating; // from 1 to 5
+    private int rating; 
     private String comment;
     private Customers reviewer;
-    private Products product; //**********
- //   private int reviewId;
-    //private customerid; might be the same as the reviewer?
+    private Products product; 
+ 
     public Reviews(int rating, String comment, Customers reviewer, Products product ) {
         this.rating = rating;
         this.comment = comment;
         this.reviewer = reviewer;
-        this.product=product; //*********
-      //  this.reviewId=reviewId;
+        this.product=product; 
+     
     }
 
-    // ✅ Getters & Setters
+
     public int getRating() { return rating; }
     public String getComment() { return comment; }
     public Customers getReviewer() { return reviewer; }
-    public Products getProduct() {return product ;} //************
-   /* public int getReviewID() {
-    	return reviewId;
-    }//**************/
+    public Products getProduct() {return product ;} 
+
 
     public void editReview(String newComment, int newRating) {
         this.comment = newComment;
@@ -35,3 +32,4 @@ public class Reviews {
         return "Rating: " + rating + "/5 - Comment: " + comment;
     }
 }
+
