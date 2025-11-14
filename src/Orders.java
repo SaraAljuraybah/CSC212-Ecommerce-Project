@@ -24,16 +24,15 @@ public class Orders {
     public double getTotalPrice() { return totalPrice; }
     public String getStatus() { return status; }
     public Customers getCustomer() { return customer; }
-    //^^^^^^^^^^^^
+ 
     public Date getOrderDate() {
         return orderDate;
     }
  
-    //*********************
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
-    //^^^^^^^
+   
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
@@ -68,3 +67,4 @@ public class Orders {
                ", Status: " + status + ", Customer: " + customer.getName();
     }
 }
+
