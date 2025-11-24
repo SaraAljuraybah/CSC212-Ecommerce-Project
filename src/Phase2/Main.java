@@ -1,192 +1,118 @@
-package Phase2;
+package phase2;
 
 import java.util.Scanner;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Main {
 
     public static void main(String[] args) {
 
         // ============================
-        //   TREES for Phase 2
+        //   PHASE 2 – AVL STRUCTURES
         // ============================
         ProductTree products = new ProductTree();
         CustomerTree customers = new CustomerTree();
         OrderTree orders = new OrderTree();
-        ReviewList reviews = new ReviewList();
+        ReviewList reviews = new ReviewList();   // later we’ll fix its package if needed
 
         // ============================
-        //   READ CSV FILES
+        //   LOAD DATA ONCE (CSV)
         // ============================
-        CSVReader.readProducts("data/products.csv", products);
+        // Make sure these CSV files are in the project root (same folder as src or as you configured)
+        CSVReader.readProducts("data/products.csv", products);       // file name has the same typo as your file
         CSVReader.readCustomers("data/customers.csv", customers);
         CSVReader.readOrders("data/orders.csv", orders, customers, products);
         CSVReader.readReviews("data/reviews.csv", reviews, products, customers);
 
-        // ============================
-        //   INTERACTIVE MENU
-        // ============================
         Scanner sc = new Scanner(System.in);
+       // SimpleDateFormat formatter = new SimpleDateFormat("M/d/yyyy"); // same as in CSVReader
         int choice;
 
         do {
-            System.out.println("\n========= MENU =========");
-            System.out.println("1. Add a new product");
-            System.out.println("2. Add a new customer");
-            System.out.println("3. Place a new order");
-            System.out.println("4. Add a review to a product");
-            System.out.println("5. Extract reviews from a specific customer");
-            System.out.println("6. Suggest top 3 products by average rating");
-            System.out.println("7. Show all orders between two dates");
-            System.out.println("8. Show common products reviewed by two customers (avg > 4)");
-            System.out.println("9. Exit");
-            System.out.println("========================");
-            System.out.print("Enter your choice: ");
+        	System.out.println("\n");
+            System.out.println("1) Find ALL orders between TWO dates");
+            System.out.println("2) List ALL products within a PRICE range");
+            System.out.println("3) Show TOP 3 most reviewed / highest rated products");
+            System.out.println("4) List ALL customers sorted ALPHABETICALLY");
+            System.out.println("5) Given a product ID, show ALL customers who reviewed it");
+            System.out.println("0) Exit");
+            System.out.print("➡ Enter your choice: ");
+
             choice = sc.nextInt();
-            sc.nextLine();
+            sc.nextLine(); // clear buffer
 
             switch (choice) {
 
-                // ================================================
-                // 1) Add new product
-                // ================================================
+                // =========================================
+                // 1) ORDERS BETWEEN TWO DATES
+                // =========================================
                 case 1:
-                    System.out.print("Enter product ID: ");
-                    int pid = sc.nextInt();
-                    sc.nextLine();
+                	System.out.print("Enter START date (M/d/yyyy): ");
+                    String startStr = sc.nextLine();
 
-                    System.out.print("Enter product name: ");
-                    String pname = sc.nextLine();
+                    System.out.print("Enter END date   (M/d/yyyy): ");
+                    String endStr = sc.nextLine();
 
-                    System.out.print("Enter product price: ");
-                    double price = sc.nextDouble();
-
-                    System.out.print("Enter stock quantity: ");
-                    int stock = sc.nextInt();
-
-                    Products newProd = new Products(pid, pname, price, stock);
-                    products.insert(newProd);
-                    System.out.println("✅ Product added.");
+                    // Send raw strings to OrderTree → it handles everything
+                    orders.printOrdersBetweenDates(startStr, endStr);
+                    
                     break;
 
-                // ================================================
-                // 2) Add new customer
-                // ================================================
+                // =========================================
+                // 2) PRODUCTS WITHIN PRICE RANGE
+                // =========================================
                 case 2:
-                    System.out.print("Enter customer ID: ");
-                    int cid = sc.nextInt();
-                    sc.nextLine();
+                	System.out.print("Enter MINIMUM price: ");
+                    double minPrice = sc.nextDouble();
 
-                    System.out.print("Enter customer name: ");
-                    String cname = sc.nextLine();
+                    System.out.print("Enter MAXIMUM price: ");
+                    double maxPrice = sc.nextDouble();
+                    sc.nextLine();  // clear buffer
 
-                    System.out.print("Enter customer email: ");
-                    String email = sc.nextLine();
-
-                    Customers newCustomer = new Customers(cid, cname, email);
-                    customers.insert(newCustomer);
-
-                    System.out.println("✅ Customer added.");
+                    products.printProductsInPriceRange(minPrice, maxPrice);
                     break;
 
-                // ================================================
-                // 3) Place new order
-                // ================================================
+                    
+
+                // =========================================
+                // 3) TOP 3 MOST REVIEWED / HIGHEST RATED
+                // =========================================
                 case 3:
-                    System.out.print("Enter order ID: ");
-                    int oid = sc.nextInt();
-
-                    System.out.print("Enter customer ID: ");
-                    int custId = sc.nextInt();
-                    sc.nextLine();
-
-                    Customers orderCust = customers.search(custId);
-                    if (orderCust == null) {
-                        System.out.println("❌ Customer not found.");
-                        break;
-                    }
-
-                    System.out.print("Enter product IDs (101;102;103): ");
-                    String idsStr = sc.nextLine();
-
-                    // Create order
-                    Orders ord = new Orders(oid, orderCust, new java.util.Date());
-
-                    String[] idList = idsStr.split(";");
-                    for (String s : idList) {
-                        int pId = Integer.parseInt(s.trim());
-                        Products prod = products.search(pId);
-                        if (prod != null) {
-                            ord.addProduct(prod);
-                        }
-                    }
-
-                    // Add to Orders Tree
-                    orders.insert(ord);
-                    orderCust.placeOrder(ord);
-
-                    System.out.println("✅ Order placed.");
+                    System.out.println("\n[3] Show TOP 3 most reviewed / highest rated products");
+                    // TODO (later):
+                    // products.printTop3ByRatingOrReviews();
                     break;
 
-                // ================================================
-                // 4) Add review
-                // ================================================
+                // =========================================
+                // 4) CUSTOMERS SORTED ALPHABETICALLY
+                // =========================================
                 case 4:
-                    System.out.print("Enter customer ID: ");
-                    int rcid = sc.nextInt();
-
-                    System.out.print("Enter product ID: ");
-                    int rpid = sc.nextInt();
-
-                    System.out.print("Enter rating (1-5): ");
-                    int rating = sc.nextInt();
-                    sc.nextLine();
-
-                    System.out.print("Enter comment: ");
-                    String comment = sc.nextLine();
-
-                    reviews.addReview(rcid, rpid, rating, comment, customers, products);
+                    System.out.println("\n[4] List ALL customers sorted ALPHABETICALLY");
+                    // TODO (later):
+                    // customers.printInAlphabeticalOrder();
                     break;
 
-                // ================================================
-                // 5) Show reviews by customer
-                // ================================================
+                // =========================================
+                // 5) ALL CUSTOMERS WHO REVIEWED A PRODUCT
+                // =========================================
                 case 5:
-                    System.out.print("Enter customer ID: ");
-                    int revCID = sc.nextInt();
-                    reviews.getReviewsByCustomer(revCID);
+                    System.out.println("\n[5] Given a product ID, show ALL customers who reviewed it");
+                    // TODO (later):
+                    // - read product ID
+                    // - search product in ProductTree
+                    // - from its reviews, print customers (sorted by rating or ID)
                     break;
 
-                // ================================================
-                // 6) Top 3 products (You must implement getTop3)
-                // ================================================
-                case 6:
-                    System.out.println("\nTop 3 Products by Rating:");
-                    products.printTop3ByRating();
-                    break;
-
-                // ================================================
-                // 7) Orders between dates
-                // ================================================
-                case 7:
-                    System.out.println("Feature pending (implement in OrderTree)");
-                    break;
-
-                // ================================================
-                // 8) Common reviewed products
-                // ================================================
-                case 8:
-                    System.out.println("Feature pending (Phase 2 bonus)");
-                    break;
-
-                case 9:
-                    System.out.println("Exiting program …");
+                case 0:
+                    System.out.println("\nExiting program… 👋");
                     break;
 
                 default:
-                    System.out.println("Invalid choice.");
+                    System.out.println("\n❌ Invalid choice, please try again.");
             }
 
-        } while (choice != 9);
+        } while (choice != 0);
 
         sc.close();
     }

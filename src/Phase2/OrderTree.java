@@ -1,6 +1,10 @@
-package Phase2;
+package phase2;
 
 import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+
 
 public class OrderTree {
 
@@ -158,26 +162,60 @@ public class OrderTree {
     // ===========================
     //   ORDERS BETWEEN DATES
     // ===========================
-    public void printOrdersBetweenDates(Date start, Date end) {
-        printBetweenRec(root, start, end);
+    
+    //%%%%%%%%%%%%%%%%%%%%%%%%%
+    public void printOrdersBetweenDates(String startStr, String endStr) {
+        SimpleDateFormat formatter = new SimpleDateFormat("M/d/yyyy");
+        formatter.setLenient(false); // reject invalid dates like 1/44/2025
+
+        try {
+            Date startDate = formatter.parse(startStr);
+            Date endDate = formatter.parse(endStr);
+
+            // Check if start is before or equal end
+            if (startDate.after(endDate)) {
+                System.out.println("❌ Start date must be BEFORE or EQUAL to end date.");
+                return;
+            }
+
+            System.out.println("\n📦 Orders between " + startStr + " and " + endStr + ":");
+            
+            int count = printBetweenRec(root, startDate, endDate);
+
+            if (count == 0) {
+                System.out.println("⚠ There are NO orders between these two dates.");
+            }
+
+
+        } catch (ParseException e) {
+            System.out.println("❌ Invalid date. Please enter a VALID date in M/d/yyyy format (e.g., 4/11/2025).");
+        }
     }
-
-    private void printBetweenRec(OrderNode node, Date start, Date end) {
+//&&&&&&&&&&&&&&&&&&&&&&
+    
+    
+   // عدلت هنا اضفت الكاونت
+    private int printBetweenRec(OrderNode node, Date start, Date end) {
         if (node == null)
-            return;
+            return 0;
 
-        printBetweenRec(node.left, start, end);
+        int count = 0;
+
+        count += printBetweenRec(node.left, start, end);
 
         Date d = node.order.getOrderDate();
-
         if (!d.before(start) && !d.after(end)) {
             System.out.println(node.order);
+            count++;
         }
 
-        printBetweenRec(node.right, start, end);
+        count += printBetweenRec(node.right, start, end);
+
+        return count;
     }
-    
+    //%%%%%%%%%%%%%%%%
     public boolean isEmpty() {
         return root == null;
     }
+//%%%%%%%%%%%%%%%%%
 }

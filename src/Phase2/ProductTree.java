@@ -1,4 +1,4 @@
-package Phase2;
+package phase2;
 
 public class ProductTree {
 
@@ -141,4 +141,46 @@ public class ProductTree {
         System.out.println(node.product);
         inOrderRec(node.right);
     }
+    
+    //%%%%%%%%%%%%%%
+    // ====================================
+    //  QUERY 2: PRODUCTS WITHIN PRICE RANGE
+    // ====================================
+    public void printProductsInPriceRange(double minPrice, double maxPrice) {
+
+        if (minPrice > maxPrice) {
+            System.out.println("❌ Minimum price cannot be greater than maximum price.");
+            return;
+        }
+
+        int count = printProductsInPriceRangeRec(root, minPrice, maxPrice);
+
+        if (count == 0) {
+            System.out.println("⚠ No products found in this price range.");
+        }
+    }
+
+    // helper – traverses the AVL and prints matching products
+    private int printProductsInPriceRangeRec(ProductNode node, double minPrice, double maxPrice) {
+        if (node == null)
+            return 0;
+
+        int count = 0;
+
+        // traverse left subtree
+        count += printProductsInPriceRangeRec(node.left, minPrice, maxPrice);
+
+        // check current product
+        double price = node.product.getPrice();
+        if (price >= minPrice && price <= maxPrice) {
+            System.out.println(node.product);   // uses Products.toString()
+            count++;
+        }
+
+        // traverse right subtree
+        count += printProductsInPriceRangeRec(node.right, minPrice, maxPrice);
+
+        return count;
+    }
+//&&&&&&&&&&&&&
 }
