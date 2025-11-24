@@ -1,6 +1,6 @@
 package Phase2;
 
-public class ReviewList implements ListInterface<Reviews> {
+public class ReviewList {
 
     private class Node {
         Reviews data;
@@ -14,7 +14,6 @@ public class ReviewList implements ListInterface<Reviews> {
     // ============================================
     //  ADD REVIEW TO THE LIST
     // ============================================
-    @Override
     public void add(Reviews review) {
         Node newNode = new Node(review);
 
@@ -102,17 +101,8 @@ public class ReviewList implements ListInterface<Reviews> {
     }
 
     // ============================================
-    //  SEARCH — NOT USED
-    // ============================================
-    @Override
-    public Reviews searchById(int id) {
-        return null; // reviews have no unique id to search by
-    }
-
-    // ============================================
     //  GET SIZE
     // ============================================
-    @Override
     public int getSize() {
         return size;
     }
