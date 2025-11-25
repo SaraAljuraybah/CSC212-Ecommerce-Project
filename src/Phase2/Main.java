@@ -33,7 +33,7 @@ public class Main {
         	System.out.println("\n");
             System.out.println("1) Find ALL orders between TWO dates");
             System.out.println("2) List ALL products within a PRICE range");
-            System.out.println("3) Show TOP 3 most reviewed / highest rated products");
+            System.out.println("3) Show TOP 3 most reviewed");
             System.out.println("4) List ALL customers sorted ALPHABETICALLY");
             System.out.println("5) Given a product ID, show ALL customers who reviewed it");
             System.out.println("0) Exit");
@@ -79,16 +79,15 @@ public class Main {
                 // 3) TOP 3 MOST REVIEWED / HIGHEST RATED
                 // =========================================
                 case 3:
-                    System.out.println("\n[3] Show TOP 3 most reviewed / highest rated products");
-                    // TODO (later):
-                    // products.printTop3ByRatingOrReviews();
+                   
+                    products.printTop3MostReviewed();
                     break;
 
                 // =========================================
                 // 4) CUSTOMERS SORTED ALPHABETICALLY
                 // =========================================
                 case 4:
-                    System.out.println("\n[4] List ALL customers sorted ALPHABETICALLY");
+                    
                     customers.printCustomersAlphabetically();
                     break;
 
