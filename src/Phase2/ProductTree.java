@@ -1,4 +1,4 @@
-package phase2;
+package Phase2;
 
 public class ProductTree {
 
@@ -183,4 +183,66 @@ public class ProductTree {
         return count;
     }
 //&&&&&&&&&&&&&
+    
+    
+    private int countNodes(ProductNode node) {
+        if (node == null) return 0;
+        return 1 + countNodes(node.left) + countNodes(node.right);
+    }
+
+    public int count() {
+        return countNodes(root);
+    }
+
+    
+    
+    public Products[] toArray() {
+        int size = count();
+        Products[] arr = new Products[size];
+        fillArray(root, arr, 0);
+        return arr;
+    }
+
+    private int fillArray(ProductNode node, Products[] arr, int index) {
+        if (node == null) return index;
+
+        index = fillArray(node.left, arr, index);
+
+        arr[index] = node.product;  
+        index++;
+
+        index = fillArray(node.right, arr, index);
+
+        return index;
+    }
+    
+    
+
+    private void sortByReviewCount(Products[] arr) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = 0; j < arr.length - i - 1; j++) {
+                if (arr[j].getReviews().getSize() < arr[j+1].getReviews().getSize()) {
+                    Products temp = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = temp;
+                }
+            }
+        }
+    }
+
+    
+    
+    
+    public void printTop3MostReviewed() {
+        Products[] arr = toArray();
+        sortByReviewCount(arr);
+
+        System.out.println("Top 3 Most Reviewed Products:\n");
+
+        for (int i = 0; i < 3 && i < arr.length; i++) {
+            System.out.println((i+1) + ". " + arr[i].getName() + " | Reviews: " + arr[i].getReviews().getSize() );
+        }
+    }
+
+    
 }
