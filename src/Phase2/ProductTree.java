@@ -8,27 +8,21 @@ public class ProductTree {
         root = null;
     }
 
-    // ====================================
-    // 🌟 GET HEIGHT
-    // ====================================
+  
     private int height(ProductNode node) {
         if (node == null)
             return 0;
         return node.height;
     }
 
-    // ====================================
-    // 🌟 BALANCE FACTOR
-    // ====================================
+ 
     private int getBalance(ProductNode node) {
         if (node == null)
             return 0;
         return height(node.left) - height(node.right);
     }
 
-    // ====================================
-    // 🌟 RIGHT ROTATION (RR)
-    // ====================================
+ 
     private ProductNode rotateRight(ProductNode y) {
         ProductNode x = y.left;
         ProductNode T2 = x.right;
@@ -42,9 +36,7 @@ public class ProductTree {
         return x;
     }
 
-    // ====================================
-    // 🌟 LEFT ROTATION (LL)
-    // ====================================
+
     private ProductNode rotateLeft(ProductNode x) {
         ProductNode y = x.right;
         ProductNode T2 = y.left;
@@ -58,9 +50,7 @@ public class ProductTree {
         return y;
     }
 
-    // ====================================
-    // 🌟 INSERT (AVL)
-    // ====================================
+
     public void insert(Products product) {
         root = insertRec(root, product);
     }
@@ -105,9 +95,7 @@ public class ProductTree {
         return node;
     }
 
-    // ====================================
-    // 🌟 SEARCH
-    // ====================================
+
     public Products search(int id) {
         ProductNode node = searchRec(root, id);
         return (node != null) ? node.product : null;
@@ -126,9 +114,7 @@ public class ProductTree {
         return searchRec(node.right, id);
     }
 
-    // ====================================
-    // 🌟 IN-ORDER (SORTED PRINTING)
-    // ====================================
+
     public void inOrder() {
         inOrderRec(root);
     }
@@ -142,10 +128,7 @@ public class ProductTree {
         inOrderRec(node.right);
     }
     
-    //%%%%%%%%%%%%%%
-    // ====================================
-    //  QUERY 2: PRODUCTS WITHIN PRICE RANGE
-    // ====================================
+
     public void printProductsInPriceRange(double minPrice, double maxPrice) {
 
         if (minPrice > maxPrice) {
@@ -160,7 +143,7 @@ public class ProductTree {
         }
     }
 
-    // helper – traverses the AVL and prints matching products
+    
     private int printProductsInPriceRangeRec(ProductNode node, double minPrice, double maxPrice) {
         if (node == null)
             return 0;
@@ -173,7 +156,7 @@ public class ProductTree {
         // check current product
         double price = node.product.getPrice();
         if (price >= minPrice && price <= maxPrice) {
-            System.out.println(node.product);   // uses Products.toString()
+            System.out.println(node.product);  
             count++;
         }
 
@@ -182,7 +165,7 @@ public class ProductTree {
 
         return count;
     }
-//&&&&&&&&&&&&&
+
     
     
     private int countNodes(ProductNode node) {

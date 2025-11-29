@@ -1,4 +1,4 @@
-package phase2;
+package Phase2;
 
 import java.util.Date;
 import java.text.ParseException;
@@ -14,27 +14,21 @@ public class OrderTree {
         root = null;
     }
 
-    // ===========================
-    //   HEIGHT
-    // ===========================
+  
     private int height(OrderNode node) {
         if (node == null)
             return 0;
         return node.height;
     }
 
-    // ===========================
-    //   BALANCE FACTOR
-    // ===========================
+
     private int getBalance(OrderNode node) {
         if (node == null)
             return 0;
         return height(node.left) - height(node.right);
     }
 
-    // ===========================
-    //   RIGHT ROTATION (RR)
-    // ===========================
+
     private OrderNode rotateRight(OrderNode y) {
         OrderNode x = y.left;
         OrderNode T2 = x.right;
@@ -50,9 +44,7 @@ public class OrderTree {
         return x; 
     }
 
-    // ===========================
-    //   LEFT ROTATION (LL)
-    // ===========================
+ 
     private OrderNode rotateLeft(OrderNode x) {
         OrderNode y = x.right;
         OrderNode T2 = y.left;
@@ -68,9 +60,7 @@ public class OrderTree {
         return y;
     }
 
-    // ===========================
-    //   INSERT (AVL)
-    // ===========================
+ 
     public void insert(Orders order) {
         root = insertRec(root, order);
     }
@@ -95,9 +85,7 @@ public class OrderTree {
 
         int balance = getBalance(node);
 
-        // =====================
-        //   AVL CASES
-        // =====================
+       
 
         // Left-Left
         if (balance > 1 && id < node.left.order.getOrderId())
@@ -122,9 +110,7 @@ public class OrderTree {
         return node;
     }
 
-    // ===========================
-    //   SEARCH BY ID
-    // ===========================
+ 
     public Orders search(int id) {
         OrderNode node = searchRec(root, id);
         return (node != null) ? node.order : null;
@@ -143,9 +129,7 @@ public class OrderTree {
         return searchRec(node.right, id);
     }
 
-    // ===========================
-    //   IN-ORDER (SORTED BY ID)
-    // ===========================
+  
     public void inOrder() {
         inOrderRec(root);
     }
@@ -159,14 +143,10 @@ public class OrderTree {
         inOrderRec(node.right);
     }
 
-    // ===========================
-    //   ORDERS BETWEEN DATES
-    // ===========================
-    
-    //%%%%%%%%%%%%%%%%%%%%%%%%%
+
     public void printOrdersBetweenDates(String startStr, String endStr) {
         SimpleDateFormat formatter = new SimpleDateFormat("M/d/yyyy");
-        formatter.setLenient(false); // reject invalid dates like 1/44/2025
+        formatter.setLenient(false); // reject invalid dates 
 
         try {
             Date startDate = formatter.parse(startStr);
@@ -174,27 +154,26 @@ public class OrderTree {
 
             // Check if start is before or equal end
             if (startDate.after(endDate)) {
-                System.out.println("❌ Start date must be BEFORE or EQUAL to end date.");
+                System.out.println("Start date must be BEFORE or EQUAL to end date.");
                 return;
             }
 
-            System.out.println("\n📦 Orders between " + startStr + " and " + endStr + ":");
+            System.out.println("\n Orders between " + startStr + " and " + endStr + ":");
             
             int count = printBetweenRec(root, startDate, endDate);
 
             if (count == 0) {
-                System.out.println("⚠ There are NO orders between these two dates.");
+                System.out.println(" There are NO orders between these two dates.");
             }
 
 
         } catch (ParseException e) {
-            System.out.println("❌ Invalid date. Please enter a VALID date in M/d/yyyy format (e.g., 4/11/2025).");
+            System.out.println(" Invalid date. Please enter a VALID date in M/d/yyyy format (e.g., 4/11/2025).");
         }
     }
-//&&&&&&&&&&&&&&&&&&&&&&
+
     
     
-   // عدلت هنا اضفت الكاونت
     private int printBetweenRec(OrderNode node, Date start, Date end) {
         if (node == null)
             return 0;
@@ -213,9 +192,9 @@ public class OrderTree {
 
         return count;
     }
-    //%%%%%%%%%%%%%%%%
+ 
     public boolean isEmpty() {
         return root == null;
     }
-//%%%%%%%%%%%%%%%%%
+
 }

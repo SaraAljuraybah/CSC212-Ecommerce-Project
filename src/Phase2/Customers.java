@@ -6,22 +6,18 @@ public class Customers {
     private String name;
     private String email;
 
-    // Each customer now has their own ORDER TREE (Phase 2)
+    // Each customer now has their own  TREE
     private OrderTree customerOrders;
 
-    // ============================================
-    //  CONSTRUCTOR
-    // ============================================
+    
     public Customers(int customerId, String name, String email) {
         this.customerId = customerId;
         this.name = name;
         this.email = email;
-        this.customerOrders = new OrderTree();  // AVL Tree for this customer's orders
+        this.customerOrders = new OrderTree();  
     }
 
-    // ============================================
-    //  GETTERS
-    // ============================================
+ 
     public int getCustomerId() { return customerId; }
     public String getName() { return name; }
     public String getEmail() { return email; }
@@ -30,27 +26,21 @@ public class Customers {
         return customerOrders;
     }
 
-    // ============================================
-    //  REGISTER NEW CUSTOMER
-    // ============================================
+    //  register new Customer
     public static Customers registerCustomer(int id, String name, String email) {
         System.out.println("Customer registered successfully!");
         return new Customers(id, name, email);
     }
 
-    // ============================================
-    //  PLACE ORDER → Insert into this customer's tree
-    // ============================================
+    //  place order,Insert into this customer's tree
     public void placeOrder(Orders order) {
         customerOrders.insert(order);
         System.out.println("Order placed successfully for customer: " + name);
     }
 
-    // ============================================
-    //  VIEW ORDER HISTORY (Inorder Traversal)
-    // ============================================
+   
     public void viewOrderHistory() {
-        System.out.println("\n📦 Order history for " + name + ":");
+        System.out.println("\n Order history for " + name + ":");
 
         if (customerOrders.isEmpty()) {
             System.out.println("No orders found.");

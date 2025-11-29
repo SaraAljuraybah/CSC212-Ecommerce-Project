@@ -8,63 +8,52 @@ public class CustomerTree {
         root = null;
     }
 
-    // ===========================
-    //   HEIGHT
-    // ===========================
+
     private int height(CustomerNode node) {
         if (node == null)
             return 0;
         return node.height;
     }
 
-    // ===========================
-    //   BALANCE FACTOR
-    // ===========================
+ 
     private int getBalance(CustomerNode node) {
         if (node == null)
             return 0;
         return height(node.left) - height(node.right);
     }
 
-    // ===========================
-    //   RIGHT ROTATION (RR)
-    // ===========================
+
     private CustomerNode rotateRight(CustomerNode y) {
         CustomerNode x = y.left;
         CustomerNode T2 = x.right;
 
-        // دوران
         x.right = y;
         y.left = T2;
 
-        // حدّث الارتفاعات
+ 
         y.height = Math.max(height(y.left), height(y.right)) + 1;
         x.height = Math.max(height(x.left), height(x.right)) + 1;
 
-        return x; // الجذر الجديد
+        return x; 
     }
 
-    // ===========================
-    //   LEFT ROTATION (LL)
-    // ===========================
+  
     private CustomerNode rotateLeft(CustomerNode x) {
         CustomerNode y = x.right;
         CustomerNode T2 = y.left;
 
-        // دوران
+      
         y.left = x;
         x.right = T2;
 
-        // حدّث الارتفاعات
+         
         x.height = Math.max(height(x.left), height(x.right)) + 1;
         y.height = Math.max(height(y.left), height(y.right)) + 1;
 
-        return y; // الجذر الجديد
+        return y; 
     }
 
-    // ===========================
-    //   INSERT (AVL)
-    // ===========================
+ 
     public void insert(Customers customer) {
         root = insertRec(root, customer);
     }
@@ -80,17 +69,13 @@ public class CustomerTree {
         else if (id > node.customer.getCustomerId())
             node.right = insertRec(node.right, customer);
         else
-            return node; // duplicate ID → نتجاهله
+            return node; 
 
-        // حدّث الارتفاع
         node.height = 1 + Math.max(height(node.left), height(node.right));
 
-        // احسب الـ balance
         int balance = getBalance(node);
 
-        // =====================
-        //   حالات الـ AVL
-        // =====================
+     
 
         // Left-Left
         if (balance > 1 && id < node.left.customer.getCustomerId())
@@ -115,9 +100,7 @@ public class CustomerTree {
         return node;
     }
 
-    // ===========================
-    //   SEARCH BY ID
-    // ===========================
+ 
     public Customers search(int id) {
         CustomerNode node = searchRec(root, id);
         return (node != null) ? node.customer : null;
@@ -136,9 +119,7 @@ public class CustomerTree {
         return searchRec(node.right, id);
     }
 
-    // ===========================
-    //   IN-ORDER (BY ID)
-    // ===========================
+  
     public void inOrder() {
         inOrderRec(root);
     }
@@ -152,8 +133,6 @@ public class CustomerTree {
         inOrderRec(node.right);
     }
 
-    // (اختياري) لو حبيتي تجيبين عدد العملاء
-   //لتحضير مساحة الآري
     public int count() {
         return countRec(root);
     }
@@ -165,7 +144,6 @@ public class CustomerTree {
     
     
     
-    //ميثود تجمع العملاء في Array
     
     public Customers[] toArray() {
         int size = count();
@@ -194,7 +172,6 @@ public class CustomerTree {
     
     
     
-   //ميثود تسوّي Sorting حسب الاسم
     private void sortByName(Customers[] arr) {
         for (int i = 0; i < arr.length - 1; i++) {
             for (int j = 0; j < arr.length - i - 1; j++) {
@@ -210,8 +187,6 @@ public class CustomerTree {
     
     
     
-   // الي بيستدعيها المين
-    // ممكن نشيل الايددي من البرنت
     public void printCustomersAlphabetically() {
         Customers[] arr = toArray();
         sortByName(arr);
@@ -219,8 +194,7 @@ public class CustomerTree {
         System.out.println("Customers Sorted Alphabetically:\n");
 
         for (int i = 0; i < arr.length; i++) {
-            System.out.println((i+1) + ". " + arr[i].getName() +
-                " | ID: " + arr[i].getCustomerId());
+            System.out.println((i+1) + ". " + arr[i].getName());
         }
     }
 

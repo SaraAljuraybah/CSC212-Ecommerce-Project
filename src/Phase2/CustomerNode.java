@@ -9,6 +9,6 @@ public class CustomerNode {
         this.customer = customer;
         this.left = null;
         this.right = null;
-        this.height = 1; // مهم للـ AVL
+        this.height = 1; 
     }
 }

@@ -8,9 +8,8 @@ import java.util.Date;
 
 public class CSVReader {
 
-    // =======================================================
-    // READ PRODUCTS → Insert into ProductTree
-    // =======================================================
+    // READ PRODUCTS , Insert into ProductTree
+    
     public static void readProducts(String filename, ProductTree productTree) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
 
@@ -27,16 +26,14 @@ public class CSVReader {
                 productTree.insert(p);
             }
 
-            System.out.println("✅ Products loaded (AVL) successfully from " + filename);
+            System.out.println(" Products loaded (AVL) successfully from " + filename);
 
         } catch (IOException e) {
-            System.out.println("❌ Error reading products file: " + e.getMessage());
+            System.out.println(" Error reading products file: " + e.getMessage());
         }
     }
 
-    // =======================================================
-    // READ CUSTOMERS → Insert into CustomerTree
-    // =======================================================
+    // READ CUSTOMERS , Insert into CustomerTree
     public static void readCustomers(String filename, CustomerTree customerTree) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
 
@@ -52,23 +49,21 @@ public class CSVReader {
                 customerTree.insert(c);
             }
 
-            System.out.println("✅ Customers loaded (AVL) successfully from " + filename);
+            System.out.println(" Customers loaded (AVL) successfully from " + filename);
 
         } catch (IOException e) {
-            System.out.println("❌ Error reading customers file: " + e.getMessage());
+            System.out.println(" Error reading customers file: " + e.getMessage());
         }
     }
 
-    // =======================================================
-    // READ ORDERS → Insert into OrderTree
-    // =======================================================
+    // READ ORDERS , Insert into OrderTree
     public static void readOrders(String filename, OrderTree orderTree,
                                   CustomerTree customers, ProductTree products) {
 
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
 
             String line = br.readLine(); // Skip header
-            SimpleDateFormat formatter = new SimpleDateFormat("M/d/yyyy");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
             while ((line = br.readLine()) != null) {
 
@@ -78,7 +73,7 @@ public class CSVReader {
                 int customerId = Integer.parseInt(data[1].trim());
                 String productIdsStr = data[2].trim();
 
-                // handle quotes "101;102"
+                // handle quotes 
                 if (productIdsStr.startsWith("\"") && productIdsStr.endsWith("\"")) {
                     productIdsStr = productIdsStr.substring(1, productIdsStr.length() - 1);
                 }
@@ -118,16 +113,14 @@ public class CSVReader {
                 }
             }
 
-            System.out.println("✅ Orders loaded (AVL) successfully from " + filename);
+            System.out.println(" Orders loaded (AVL) successfully from " + filename);
 
         } catch (Exception e) {
-            System.out.println("❌ Error reading orders file: " + e.getMessage());
+            System.out.println(" Error reading orders file: " + e.getMessage());
         }
     }
 
-    // =======================================================
-    // READ REVIEWS → still list-based (or use a tree if you want bonus++)
-    // =======================================================
+    // READ REVIEWS 
     public static void readReviews(String filename, ReviewList reviewList,
                                    ProductTree products, CustomerTree customers) {
 
@@ -156,10 +149,10 @@ public class CSVReader {
                 }
             }
 
-            System.out.println("✅ Reviews loaded successfully from " + filename);
+            System.out.println(" Reviews loaded successfully from " + filename);
 
         } catch (IOException e) {
-            System.out.println("❌ Error reading reviews file: " + e.getMessage());
+            System.out.println(" Error reading reviews file: " + e.getMessage());
         }
     }
 }

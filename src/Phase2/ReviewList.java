@@ -11,9 +11,7 @@ public class ReviewList {
     private Node head;
     private int size;
 
-    // ============================================
-    //  ADD REVIEW TO THE LIST
-    // ============================================
+ 
     public void add(Reviews review) {
         Node newNode = new Node(review);
 
@@ -29,9 +27,7 @@ public class ReviewList {
         size++;
     }
 
-    // ============================================
-    //  GET AVERAGE RATING
-    // ============================================
+ 
     public double getAverage() {
         if (size == 0) return 0;
 
@@ -46,9 +42,7 @@ public class ReviewList {
         return total / size;
     }
 
-    // ============================================
-    //  PRINT REVIEWS BY CUSTOMER
-    // ============================================
+  
     public void getReviewsByCustomer(int customerId) {
         if (head == null) {
             System.out.println("No reviews available.");
@@ -80,9 +74,7 @@ public class ReviewList {
             System.out.println("This customer has not submitted any reviews yet.");
     }
 
-    // ============================================
-    //  CHECK IF CUSTOMER HAS ANY REVIEW
-    // ============================================
+  
     public boolean hasReviewByCustomer(int customerId) {
         Node current = head;
 
@@ -100,17 +92,12 @@ public class ReviewList {
         return false;
     }
 
-    // ============================================
-    //  GET SIZE
-    // ============================================
+    
     public int getSize() {
         return size;
     }
 
-    // ============================================
-    //  ADD REVIEW USING CUSTOMER + PRODUCT IDs
-    //  (UPDATED FOR PHASE 2 — USING TREES)
-    // ============================================
+ 
     public void addReview(
             int customerId, int productId, int rating, String comment,
             CustomerTree customers, ProductTree products) {
@@ -118,21 +105,21 @@ public class ReviewList {
         // search customers in the AVL tree
         Customers customer = customers.search(customerId);
         if (customer == null) {
-            System.out.println("❌ Customer not found with ID " + customerId);
+            System.out.println(" Customer not found with ID " + customerId);
             return;
         }
 
         // search products in AVL tree
         Products product = products.search(productId);
         if (product == null) {
-            System.out.println("❌ Product not found with ID " + productId);
+            System.out.println(" Product not found with ID " + productId);
             return;
         }
 
-        // create review object
+      
         Reviews review = new Reviews(rating, comment, customer, product);
 
-        // add review to product + review list
+        
         product.addReview(review);
         add(review);
 
@@ -140,10 +127,10 @@ public class ReviewList {
                 customer.getName() + " for product: " + product.getName());
     }
     
-  //*************************************************  for quiry 5
+
     
     
-    //تحويل الريفيوز إلى Array
+   
     public Reviews[] toArray() {
         Reviews[] arr = new Reviews[size];
         Node  current = head;
@@ -159,7 +146,7 @@ public class ReviewList {
     }
   
     
-    //ترتيب حسب أعلى Rating
+   
     
     private void sortByRating(Reviews[] arr) {
         for (int i = 0; i < arr.length - 1; i++) {
@@ -175,7 +162,6 @@ public class ReviewList {
 
     
     
-    // لي نستدعيها في المين
     
     public void printCustomersSortedByRating() {
         if (size == 0) {
